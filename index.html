@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Bnuy</title>
+    <script>
+    function showImage(htmlText) {
+        const div = document.createElement("div");
+        htmlText = htmlText.trim(); 
+        div.innerHTML = htmlText;
+        const pics = div.querySelectorAll("source");
+        const url = pics[Math.floor(Math.random() * pics.length)].getAttribute("srcSet");
+        const img = document.createElement("img");
+        img.setAttribute("src", url);
+        document.body.append(img);
+    }
+
+    // APIs are for nerds. Just scrape their site.
+    const searchPage = "https://www.istockphoto.com/search/2/image?mediatype=photography&phrase=cute%20rabbit%20bunny"
+    const corsUrl = "https://corsproxy.io/?" + encodeURIComponent(searchPage);
+    fetch(corsUrl)
+    .then(function(response) {
+      return response.text();
+    }).then(function (html) {
+      // This is the HTML from our response as a text string
+      showImage(html);
+    }).catch(function (err) {
+      // There was an error
+      console.warn('Something went wrong.', err);
+    });
+    </script></head>
+  <body>
+    <h1>Bnuy</h1>
+    <h2><a href="javascript:window.location.reload(true)">Another!</a></h1>
+  </body>
+</html>
